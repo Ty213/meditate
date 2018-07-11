@@ -1,0 +1,11 @@
+body {
+    font-size: 62.5%;
+    background-color: black;
+}
+.counter {
+    font-size: 3rem;
+    color: white;
+}
+.start-btn {
+    font-size: 2.5rem;
+}

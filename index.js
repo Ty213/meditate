@@ -17,15 +17,27 @@ class Timer {
     }
     startTimer(){
         this.interval = setInterval(() => {
-            this.timeRemaining();
             if(this.end - Date.now() <= 0) {
                 this.stopTimer();
             }
+            this.updateCounter();
         },1000);
     }
     stopTimer(){
-        audio.play();
         clearInterval(this.interval);
+        audio.play();
+    }
+    updateCounter(){ //updates DOM element
+        const count = Math.floor((this.timeRemaining() / 1000));
+        console.log(count);
+        if(count <= 0){
+            counter.innerHTML = 0;
+        }else if(count < 60){
+            counter.innerHTML = count;
+        } else {
+            counter.innerHTML = Math.floor(count / 60);
+        }
+        
     }
 }
 
@@ -36,7 +48,3 @@ startButton.addEventListener("click",()=> {
     const endTime = startTime + (parseInt(counter.innerHTML) * 60) * 1000;
     timer.setTime(startTime, endTime);
 });
-
-const updateCounter = () => {
-    console.log('heloo');
-};
