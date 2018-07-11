@@ -1,24 +1,42 @@
 const startButton = document.querySelector(".start-btn");
-const counterMinutes = document.querySelector(".counter__minutes");
+const counter = document.querySelector(".counter__minutes");
+const audio = document.querySelector(".audio");
 
 class Timer {
     constructor(start=0,end=0){
         this.start = start;
         this.end = end;
     }
-
     setTime(start,end){
         this.start = start;
         this.end = end;
+        this.startTimer();
     }
-
+    timeRemaining(){
+        return this.end - Date.now();
+    }
+    startTimer(){
+        this.interval = setInterval(() => {
+            this.timeRemaining();
+            if(this.end - Date.now() <= 0) {
+                this.stopTimer();
+            }
+        },1000);
+    }
+    stopTimer(){
+        audio.play();
+        clearInterval(this.interval);
+    }
 }
-let timer = new Timer()
 
-console.log(startButton);
-console.log(parseInt(counterMinutes.innerHTML));
-
+const timer = new Timer();
 
 startButton.addEventListener("click",()=> {
-    timer.setTime(Date.now(),Date.now() + (parseInt(counterMinutes.innerHTML) * 1000));
+    const startTime = Date.now();
+    const endTime = startTime + (parseInt(counter.innerHTML) * 60) * 1000;
+    timer.setTime(startTime, endTime);
 });
+
+const updateCounter = () => {
+    console.log('heloo');
+};
